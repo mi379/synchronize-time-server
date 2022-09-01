@@ -1,5 +1,17 @@
 import {exec} from 'child_process'
 
+
+export default function useSocket(socket){
+  socket.on('connect',(client) => {
+    console.log('connected..')
+    client.on('sync',(ts) => {
+      return parseTimestamp(
+        new Date(ts)
+      )
+    })
+  })
+}
+
 async function synchronizeTime(cmd){
   try{
     await exec(
@@ -13,15 +25,6 @@ async function synchronizeTime(cmd){
   }
 }
 
-
-export default function(socket){
-  console.log('connected..')
-  socket.on('sync',(ts) => {
-   return parseTimestamp(
-      new Date(ts)
-    )
-  })
-}
 
 function parseTimestamp(time){
   return setCmdCommand(
