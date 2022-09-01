@@ -10,7 +10,6 @@ httpServer.listen(process.env.PORT)
 
 httpServer.on('listening',() => {
   console.log('ready to use')
-
 })
 
 httpServer.on('error',(err) => {
